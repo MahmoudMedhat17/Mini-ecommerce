@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import {useFilterContext} from "../context/FilterContext";
+import { Link } from "react-router-dom";
 
 
 const url = "https://dummyjson.com/products";
@@ -36,7 +37,6 @@ const Sidebar = () => {
     setMinPrice(value ? parseFloat(value) : undefined);
   };
 
-
   const handleMaxPrice = (e:React.ChangeEvent<HTMLInputElement>) =>{
     const value = e.target.value;
     setMaxPrice(value ? parseFloat(value) : undefined);
@@ -60,7 +60,9 @@ const Sidebar = () => {
 
   return (
     <div className="px-4 py-2 w-64">
-      <h2 className="font-bold text-xl mb-4 mt-5">React Store</h2>
+      <Link to={"/"}>
+        <h2 className="font-bold text-xl mb-4 mt-5">React Store</h2>
+      </Link>
       <section>
         <input type="text" className="px-4 py-1 border border-gray-300 rounded-md mb-3" placeholder="Search Product" value={searchQuery} onChange={(e)=> setSearchQuery(e.target.value)}/>
         <div className="flex gap-2">
@@ -99,6 +101,6 @@ const Sidebar = () => {
       </div>
     </div>
   )
-}
+};
 
 export default Sidebar;

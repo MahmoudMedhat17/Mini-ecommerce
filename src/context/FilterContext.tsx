@@ -25,9 +25,11 @@ export const FilterContext = ({children}:{children:React.ReactNode}) =>{
     const[maxPrice,setMaxPrice] = useState<number>();
     const[keyWord,setKeyWord] = useState<string>("");
 
-    
+
+    const values = {searchQuery, setSearchQuery, selectedCategory, setSelectedCategory, minPrice, setMinPrice, maxPrice, setMaxPrice, keyWord, setKeyWord};
+
     return(
-     <FilterContextType.Provider value={{searchQuery, setSearchQuery, selectedCategory, setSelectedCategory, minPrice, setMinPrice, maxPrice, setMaxPrice, keyWord, setKeyWord}}>
+     <FilterContextType.Provider value={values}>
         {children}
      </FilterContextType.Provider>   
     )

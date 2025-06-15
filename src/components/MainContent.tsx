@@ -2,6 +2,8 @@ import { Tally3 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useFilterContext } from '../context/FilterContext';
 import axios from 'axios';
+import Itemcard from './Itemcard';
+
 
 
 const MainContent = () => {
@@ -27,7 +29,7 @@ const MainContent = () => {
 
   },[currentPage, keyWord]);
 
-  let filteringProducts = products;
+  let filteringProducts = [...products];
 
   const getFilteredProducts = () =>{
 
@@ -62,6 +64,7 @@ const MainContent = () => {
         // then filter the products according to cheapest prices
         return filteringProducts.sort((a,b) => a.price - b.price);
       };
+
       // If filter is equal to Expensive
       if(filter === "Expensive"){
         // then filter the products according to expensive prices
@@ -100,8 +103,12 @@ const MainContent = () => {
         </section>
 
         {/* Main Content */}
-        <section className='grid sm:grid-cols-3 md:grid-cols-4 gap-5'>
-            
+        <section className='grid sm:grid-cols-3 md:grid-cols-4 gap-5 mt-2 overflow-y-auto'>
+            {
+              products.map((product)=>(
+                <Itemcard key={product.id} id={product.id} title={product.title}  price={product.price} image={product.thumbnail}/>
+              ))
+            }
         </section>
     </div>
   )
