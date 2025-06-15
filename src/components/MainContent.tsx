@@ -105,7 +105,7 @@ const MainContent = () => {
         {/* Main Content */}
         <section className='grid sm:grid-cols-3 md:grid-cols-4 gap-5 mt-2 overflow-y-auto'>
             {
-              products.map((product)=>(
+              filteringProducts.map((product)=>(
                 <Itemcard key={product.id} id={product.id} title={product.title}  price={product.price} image={product.thumbnail}/>
               ))
             }

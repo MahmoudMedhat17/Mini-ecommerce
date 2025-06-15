@@ -87,7 +87,7 @@ const Sidebar = () => {
         <div className="flex flex-col space-y-2">
           {
             keyWords.map((keyword,index)=>(
-              <button onClick={()=>handleKeyWords(keyWord)} key={index} className="px-4 py-2 cursor-pointer hover:bg-gray-200 rounded-md duration-300 w-full flex items-start">
+              <button onClick={()=>handleKeyWords(keyword)} key={index} className="px-4 py-2 cursor-pointer hover:bg-gray-200 rounded-md duration-300 w-full flex items-start">
                 {
                   keyword.toUpperCase()
                 }
