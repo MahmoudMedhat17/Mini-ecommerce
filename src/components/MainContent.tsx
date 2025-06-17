@@ -12,8 +12,10 @@ const MainContent = () => {
   const[dropDownMenu, setDropDownMenu] = useState(false);
   const[currentPage,setCurrentPage] = useState(1);
   const itemsPerPage = 12;
+  const totalProducts = 100;
   const {searchQuery, selectedCategory, minPrice, maxPrice, keyWord} = useFilterContext();
-
+  // This totalPages will give us 9 pages each one of them has 12 products
+  const totalPages = Math.ceil(totalProducts / itemsPerPage);
 
   useEffect(()=>{
     let url = `https://dummyjson.com/products?limit=${itemsPerPage}&skip=${(currentPage - 1) * itemsPerPage}`;
@@ -25,7 +27,7 @@ const MainContent = () => {
     axios.get(url).then((item)=>{
       setProducts(item.data.products);
       console.log(item.data.products);
-    })
+    });
 
   },[currentPage, keyWord]);
 
@@ -81,6 +83,13 @@ const MainContent = () => {
     return filteringProducts;
   };
 
+  // This function handles the pagination by passing page as an argument and use it with conditions to setCurrentPage with this argument
+  const handlePagination = (page:number)=>{
+    if(page >= 1 && page <= totalPages){
+      setCurrentPage(page);
+    }
+  };
+
 
   const filteredProducts = getFilteredProducts();
   console.log(filteredProducts);
@@ -103,12 +112,31 @@ const MainContent = () => {
         </section>
 
         {/* Main Content */}
-        <section className='grid sm:grid-cols-3 md:grid-cols-4 gap-5 mt-2 overflow-y-auto'>
+        <section className='grid md:grid-cols-3 lg:grid-cols-4 gap-5 mt-2 overflow-y-auto'>
             {
               filteringProducts.map((product)=>(
                 <Itemcard key={product.id} id={product.id} title={product.title}  price={product.price} image={product.thumbnail}/>
               ))
             }
+        </section>
+
+        {/* Pagination here */}
+        <section className='mt-10 flex justify-between items-center'>
+          {
+            // 
+            filteringProducts.length !== 0 && 
+            (
+              <>
+                <button disabled={currentPage === 1} onClick={()=> handlePagination(currentPage - 1)} className='font-semibold cursor-pointer'>
+                  Previous
+                </button>
+                {/* Numbers */}
+                <button disabled={currentPage === totalPages} onClick={()=> handlePagination(currentPage + 1)} className='font-semibold cursor-pointer'>
+                  Next
+                </button>
+              </>
+            )
+          }
         </section>
     </div>
   )

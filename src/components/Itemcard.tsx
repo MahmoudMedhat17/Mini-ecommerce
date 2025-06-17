@@ -11,7 +11,7 @@ interface itemCardProps{
 const Itemcard = ({id, title, price, image}: itemCardProps) => {
   return (
     <div className="w-full flex">
-        <Link to={`/product/${id}`} className="border-2 border-gray-200 rounded-lg p-4">
+        <Link to={`/product/${id}`} className="w-full border-2 border-gray-200 rounded-lg p-4">
             <img src={image} alt={title} className="w-full h-32 object-cover mb-2"/>
             <h3 className="font-bold">{title}</h3>
             <p>${price}</p>
