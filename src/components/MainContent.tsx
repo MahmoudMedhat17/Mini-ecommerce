@@ -90,6 +90,29 @@ const MainContent = () => {
     }
   };
 
+  // This function displays the number of pages of the products
+  const getPageNumbers = () =>{
+    // This button array that gonna hold the numbers
+    const buttons:number[] = [];
+    let startPage = Math.max(1, currentPage - 2);
+    let endPage = Math.min(totalPages, currentPage + 2);
+
+    if(currentPage - 2 < 1){
+      endPage = Math.min(totalPages, endPage + (2 - currentPage -1));
+    };
+
+    if(currentPage + 2 > totalPages){
+      startPage = Math.min(1, startPage - (2 - totalPages - currentPage));
+    };
+
+    
+    for(let i = startPage; i <= endPage; i++){
+      buttons.push(i);
+    };
+
+    // Return the array
+    return buttons;
+  };
 
   const filteredProducts = getFilteredProducts();
   console.log(filteredProducts);
@@ -123,7 +146,7 @@ const MainContent = () => {
         {/* Pagination here */}
         <section className='mt-10 flex justify-between items-center'>
           {
-            // 
+            // Here we check if the there's any products displayed then show the Pagination if not then do not show the pagination
             filteringProducts.length !== 0 && 
             (
               <>
@@ -131,6 +154,15 @@ const MainContent = () => {
                   Previous
                 </button>
                 {/* Numbers */}
+                <div className='flex items-center gap-10'>
+                  {
+                    getPageNumbers().map((number, index)=>(
+                      <button onClick={()=> setCurrentPage(number)} key={index} className={`font-semibold px-2 rounded-full cursor-pointer text-black ${currentPage === number ? "bg-black text-white" : ""}`}>
+                        {number}
+                      </button>
+                    ))
+                  }
+                </div>
                 <button disabled={currentPage === totalPages} onClick={()=> handlePagination(currentPage + 1)} className='font-semibold cursor-pointer'>
                   Next
                 </button>
