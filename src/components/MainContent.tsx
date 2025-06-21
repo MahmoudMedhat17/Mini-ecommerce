@@ -94,7 +94,9 @@ const MainContent = () => {
   const getPageNumbers = () =>{
     // This button array that gonna hold the numbers
     const buttons:number[] = [];
+    // This variable means that start page starts from 1 page so it won't go below 1 and current-2 means that to show the 2 previous pages from the current page like current page = 5 then shows 4 and 3  
     let startPage = Math.max(1, currentPage - 2);
+    // This variable means that end page ends at totalPages and it doesn't go further than totalPages and current+2 means that to show the next 2 pages of the current page like current page = 5 then shows 6 and 7
     let endPage = Math.min(totalPages, currentPage + 2);
 
     if(currentPage - 2 < 1){
@@ -105,12 +107,14 @@ const MainContent = () => {
       startPage = Math.min(1, startPage - (2 - totalPages - currentPage));
     };
 
-    
+
+    // Here this for loop puts the numbers one by one into the array"buttons";
     for(let i = startPage; i <= endPage; i++){
+      // Here we push the numbers into the array
       buttons.push(i);
     };
 
-    // Return the array
+    // Return the array to get the number of the pages
     return buttons;
   };
 
